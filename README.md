@@ -1,5 +1,4 @@
-# AIVA_2025-Sandra_Montejano_Marina_de_Diego
-Repositorio para la evolución del trabajo 
+Repositorio para la evolución del trabajo. Sandra Montejano y Marina de Diego.
 
 # AIVA_2025: Conteo de Células de Glóbulos Rojos
 
