@@ -1,11 +1,11 @@
-# Ecosistema del Sistema, Test Automáticos y Mockup
+# Ecosistema del sistema, test automáticos y Mockup
 
-## 1. Ecosistema del Sistema
+## 1. Ecosistema del sistema
 
 ### 1.1 Descripción General
 El sistema de conteo de glóbulos rojos se integra con un microscopio que proporciona imágenes en resolución VGA (640x480 píxeles). El software procesará estas imágenes para segmentar y contar las células, generando un archivo XML estructurado con la distribución de las células detectadas.
 
-### 1.2 Componentes del Sistema
+### 1.2 Componentes del sistema
 El sistema está compuesto por los siguientes módulos:
 
 - **Microscopio (Fuente de Imágenes)**: Captura las imágenes para su procesamiento.
@@ -17,7 +17,7 @@ El sistema está compuesto por los siguientes módulos:
 - **Módulo de Exportación**: Permite generar y guardar los archivos XML con los datos procesados.
 - **Interfaz de Usuario**: Permite a los técnicos interactuar con el sistema para validar y revisar los resultados.
 
-### 1.3 Flujo del Sistema
+### 1.3 Flujo del sistema
 El flujo de trabajo del sistema sigue la siguiente estructura:
 
 1. El microscopio captura imágenes y las envía al módulo de captura.
@@ -28,7 +28,7 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 6. Si el resultado es válido, se exporta un archivo XML con los datos estructurados.
 7. Los datos se almacenan localmente en el sistema para su posterior análisis.
 
-### 1.4 Tecnologías Utilizadas
+### 1.4 Tecnologías utilizadas
 - **Lenguaje de programación**: Java
 - **Procesamiento de imágenes**: OpenCV
 - **Framework de testing**: JUnit
@@ -36,7 +36,7 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 - **Generación de XML**: Java DOM Parser
 - **Interfaz gráfica**: Java Swing o JavaFX
 
-## 2. Test Automáticos
+## 2. Test automáticos
 
 ### 2.1 Pruebas Unitarias
 Se implementarán pruebas unitarias para validar el correcto funcionamiento de los módulos del sistema. Las pruebas estarán enfocadas en:
@@ -53,7 +53,7 @@ Se utilizará GitHub Actions para ejecutar los tests automáticamente en cada co
 3. Ejecución de pruebas unitarias con JUnit.
 4. Reporte de errores en caso de fallos.
 
-## 3. Mockup del Sistema
+## 3. Mockup del sistema
 
 Se diseñará un mockup de la interfaz donde se visualizarán los resultados de la segmentación, permitiendo la validación manual del técnico de laboratorio.
 
