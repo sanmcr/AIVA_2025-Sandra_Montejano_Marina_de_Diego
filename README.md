@@ -43,3 +43,10 @@ Definir si el software se venderá bajo licencia o será de código abierto.
 
 ## Contacto
 Para más información, contactar con el equipo de desarrollo a través de GitHub Issues.
+
+## Documentación del Ecosistema
+
+Puedes encontrar el ecosistema del sistema, las pruebas automáticas y el mockup en el siguiente documento:
+
+📎 [Ver Ecosistema, Tests Automáticos y Mockup](docs/Ecosistema_Tests_Mockup.md)
+
