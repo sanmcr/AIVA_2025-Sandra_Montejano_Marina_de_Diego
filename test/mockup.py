@@ -32,13 +32,26 @@ def contar_celulas_mock(imagen, coordenadas_celulas):
     return len(coordenadas_celulas)
 
 
+def agregar_bounding_box(coordenadas, nuevo_bbox):
+    """Añade un nuevo bounding box a la lista de coordenadas."""
+    coordenadas.append(nuevo_bbox)
+    return coordenadas
+
+
+def eliminar_bounding_box(coordenadas, bbox_a_eliminar):
+    """Elimina un bounding box específico de la lista si existe."""
+    if bbox_a_eliminar in coordenadas:
+        coordenadas.remove(bbox_a_eliminar)
+    return coordenadas
+
+
 def generar_xml_mock(detecciones, nombre_archivo="resultado.xml"):
-    """Genera un XML con los datos de las células detectadas en el formato VOC Pascal."""
+    """Genera un XML con los datos de las células detectadas en formato VOC Pascal."""
     annotation = ET.Element("annotation", verified="no")
 
     ET.SubElement(annotation, "folder").text = "RBC"
     ET.SubElement(annotation, "filename").text = "BloodImage_00206"
-    ET.SubElement(annotation, "path").text = "/Users/cosmic/WBC_CLASSIFICATION_ANNO/RBC/BloodImage_00206.jpg"
+    ET.SubElement(annotation, "path").text = "/ruta/ficticia/BloodImage_00206.jpg"
 
     source = ET.SubElement(annotation, "source")
     ET.SubElement(source, "database").text = "Unknown"
@@ -75,7 +88,6 @@ def generar_xml_mock(detecciones, nombre_archivo="resultado.xml"):
     with open(ruta_completa, "w", encoding="utf-8") as file:
         file.write(xml_output)
 
-    print(f"XML guardado en: {os.path.abspath(ruta_completa)}")
     return ruta_completa
 
 
