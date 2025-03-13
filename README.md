@@ -38,8 +38,21 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 2. Relacionar cada commit con su respectiva issue.
 3. Enviar un pull request con una descripción clara de los cambios.
 
-## Licencia
-Definir si el software se venderá bajo licencia o será de código abierto.
+## 5. Licencia
+
+Este software está protegido por derechos de autor (copyright) y no es de código abierto.  
+Todos los derechos están reservados a  VisioTech AI.  
+
+Queda estrictamente prohibida la reproducción, distribución o modificación del software sin el consentimiento expreso y por escrito de los titulares de los derechos.  
+
+### Derechos de Uso
+- El software solo puede ser utilizado por las entidades y personas autorizadas.  
+- No se permite la copia, redistribución ni la ingeniería inversa del código.  
+- La documentación adjunta también está protegida por copyright.  
+
+### Nota Legal
+El uso no autorizado de este software puede dar lugar a sanciones legales conforme a las leyes de propiedad intelectual vigentes.  
+
 
 ## Contacto
 Para más información, contactar con el equipo de desarrollo a través de GitHub Issues.
