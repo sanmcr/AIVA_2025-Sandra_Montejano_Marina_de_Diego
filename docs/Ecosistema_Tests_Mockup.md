@@ -43,71 +43,64 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 ### 2.1 Pruebas Unitarias
 Se implementarán pruebas unitarias en Python para validar el correcto funcionamiento de los módulos del sistema. Las pruebas estarán enfocadas en:
 
-- **Carga de imágenes:** Verificación de que la imagen se carga correctamente en memoria desde `JPGImages/`.
+- **Carga de imágenes:** Verificación de que la imagen se carga correctamente en memoria desde `img/JPGImages/`.
 - **Segmentación de células:** Comprobación de que el sistema detecta y segmenta correctamente las células.
-- **Generación de XML:** Validación de que el XML generado contiene las coordenadas correctas de las células detectadas y se almacena en `annotations/`.
+- **Generación de XML:** Validación de que el XML generado contiene las coordenadas correctas de las células detectadas y se almacena en `img/annotations/`.
+- **Visualización:** Comprobación de que la imagen segmentada se muestra correctamente con los bounding boxes.
 
-Ejemplo de test unitario en Python utilizando `unittest`:
+Ejemplo de pruebas unitarias en Python utilizando `unittest`:
+
 ```python
 import unittest
 import cv2
 import os
-from contador_globulos import contar_celulas, generar_xml
+import xml.etree.ElementTree as ET
+from src.python.mockup import contar_celulas, generar_xml, mostrar_bounding_boxes
 
 class TestContadorGlobulos(unittest.TestCase):
+
+    def setUp(self):
+        """ Configuración inicial: Define rutas de prueba. """
+        self.imagen_path = "img/JPGImages/imagen1.jpg"
+        self.xml_output_path = "img/annotations/resultado_test.xml"
+
+    def test_carga_imagen(self):
+        """ Verifica que la imagen de prueba existe y se puede cargar. """
+        self.assertTrue(os.path.exists(self.imagen_path), "La imagen de prueba no existe.")
+        imagen = cv2.imread(self.imagen_path, 0)  # Cargar en escala de grises
+        self.assertIsNotNone(imagen, "No se pudo cargar la imagen.")
+
     def test_contar_celulas(self):
-        """ Verifica que el contador detecta células en una imagen de prueba. """
-        imagen_path = "imagenes_prueba/JPGImages/imagen1.jpg"
-        self.assertTrue(os.path.exists(imagen_path), "La imagen de prueba no existe")
-        imagen = cv2.imread(imagen_path, 0)  # Imagen en escala de grises
+        """ Comprueba que el sistema detecta células en la imagen de prueba. """
+        imagen = cv2.imread(self.imagen_path, 0)
         num_celulas, bboxes = contar_celulas(imagen)
-        self.assertGreater(num_celulas, 0, "Debe detectar al menos una célula")
-    
+        self.assertGreater(num_celulas, 0, "Debe detectar al menos una célula.")
+
     def test_generacion_xml(self):
-        """ Verifica que el XML generado es válido. """
+        """ Verifica que el XML generado contiene la estructura correcta. """
         bboxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
-        xml_output_path = "imagenes_prueba/annotations/resultado.xml"
-        generar_xml(bboxes, xml_output_path)
-        self.assertTrue(os.path.exists(xml_output_path), "El XML no se generó correctamente")
+        generar_xml(bboxes, self.xml_output_path)
+
+        self.assertTrue(os.path.exists(self.xml_output_path), "El XML no se generó correctamente.")
+        tree = ET.parse(self.xml_output_path)
+        root = tree.getroot()
+        self.assertEqual(root.tag, "celulas", "El XML debe contener una etiqueta <celulas>.")
+        os.remove(self.xml_output_path)
 
 if __name__ == '__main__':
     unittest.main()
-```
-
-### 2.2 Configuración de GitHub Actions
-Se utilizará GitHub Actions para ejecutar los tests automáticamente en cada commit y pull request. El flujo de trabajo incluirá:
-
-1. **Clonación del repositorio.**
-2. **Instalación de dependencias.**
-3. **Ejecución de pruebas unitarias con `unittest` en Python.**
-4. **Reporte de errores en caso de fallos.**
-
-Ejemplo de ejecución en local:
-```sh
-python -m unittest discover tests
 ```
 
 ---
 
 ## 3. Mockup del Sistema
 
-Dado que el sistema debe integrarse con un software en Java, el mockup del sistema consistirá en la implementación de una función que realice la segmentación de células, genere el XML correspondiente y visualice los resultados para su validación manual.
+El mockup del sistema simula la funcionalidad del conteo de células y la generación de XML para pruebas iniciales.
 
-### 3.1 Descripción del Mockup
-El mockup implementado en Python servirá como un prototipo que simula el funcionamiento del sistema de detección de células. Este incluirá:
-
-- **Carga de imágenes de prueba desde `JPGImages/`.**
+- **Carga de imágenes desde `img/JPGImages/`.**
 - **Segmentación de células utilizando OpenCV.**
-- **Generación de un XML con los resultados de la detección en `annotations/`.**
-- **Visualización de las imágenes con bounding boxes.**
-
-Esta implementación permitirá validar la funcionalidad del sistema antes de su integración final con Java.
-
-### 3.2 Validación y Supervisión
-Para garantizar que el sistema cumple con los requisitos de los técnicos de laboratorio:
-- Se mostrará en pantalla la segmentación de las células antes de confirmar el conteo.
-- Se generará un archivo XML con la distribución de las células para que el software del microscopio lo procese.
-- Se realizarán pruebas con imágenes reales proporcionadas por el cliente para evaluar la tasa de acierto.
+- **Generación de un XML en `img/annotations/`.**
+- **Visualización de imágenes segmentadas con bounding boxes.**
 
 ---
 
