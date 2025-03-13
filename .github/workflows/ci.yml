@@ -1,4 +1,4 @@
-name: Java y Python CI
+name: Test Automáticos en Python
 
 on:
   push:
@@ -9,47 +9,26 @@ on:
       - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout código
+    - name: Clonar el repositorio
       uses: actions/checkout@v3
 
-    # Configurar entorno Java
-    - name: Configurar JDK 17
-      uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '17'
-
-    - name: Compilar código Java
-      run: mvn compile
-
-    - name: Ejecutar pruebas con JUnit
-      run: mvn test
-
-  test-python:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout código
-      uses: actions/checkout@v3
-
-    # Configurar entorno Python
     - name: Configurar Python
       uses: actions/setup-python@v3
       with:
-        python-version: 3.8
+        python-version: 3.8  # Puedes cambiar a otra versión si lo necesitas
 
-    - name: Instalar dependencias Python
+    - name: Instalar dependencias
       run: pip install opencv-python numpy
 
-    - name: Ejecutar pruebas con unittest
+    - name: Ejecutar tests con unittest
       run: python -m unittest discover tests
 
     - name: Guardar archivos XML generados
       uses: actions/upload-artifact@v3
       with:
         name: resultados-xml
-        path: imagenes_prueba/annotations/
+        path: img/annotations/
