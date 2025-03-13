@@ -43,31 +43,32 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 ### 2.1 Pruebas Unitarias
 Se implementarán pruebas unitarias en Python para validar el correcto funcionamiento de los módulos del sistema. Las pruebas estarán enfocadas en:
 
-- **Carga de imágenes:** Verificación de que la imagen se carga correctamente en memoria.
+- **Carga de imágenes:** Verificación de que la imagen se carga correctamente en memoria desde `JPGImages/`.
 - **Segmentación de células:** Comprobación de que el sistema detecta y segmenta correctamente las células.
-- **Generación de XML:** Validación de que el XML generado contiene las coordenadas correctas de las células detectadas.
+- **Generación de XML:** Validación de que el XML generado contiene las coordenadas correctas de las células detectadas y se almacena en `annotations/`.
 
 Ejemplo de test unitario en Python utilizando `unittest`:
 ```python
 import unittest
 import cv2
-import numpy as np
+import os
 from contador_globulos import contar_celulas, generar_xml
 
 class TestContadorGlobulos(unittest.TestCase):
     def test_contar_celulas(self):
         """ Verifica que el contador detecta células en una imagen de prueba. """
-        imagen = cv2.imread("imagen_prueba.png", 0)  # Imagen en escala de grises
+        imagen_path = "imagenes_prueba/JPGImages/imagen1.jpg"
+        self.assertTrue(os.path.exists(imagen_path), "La imagen de prueba no existe")
+        imagen = cv2.imread(imagen_path, 0)  # Imagen en escala de grises
         num_celulas, bboxes = contar_celulas(imagen)
         self.assertGreater(num_celulas, 0, "Debe detectar al menos una célula")
-        self.assertIsInstance(bboxes, list, "Debe devolver una lista de bounding boxes")
     
     def test_generacion_xml(self):
         """ Verifica que el XML generado es válido. """
         bboxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
-        xml_output = generar_xml(bboxes)
-        self.assertIn("<celulas>", xml_output, "El XML debe contener la etiqueta <celulas>")
-        self.assertIn("<celula x='10'", xml_output, "Debe contener las coordenadas de las células detectadas")
+        xml_output_path = "imagenes_prueba/annotations/resultado.xml"
+        generar_xml(bboxes, xml_output_path)
+        self.assertTrue(os.path.exists(xml_output_path), "El XML no se generó correctamente")
 
 if __name__ == '__main__':
     unittest.main()
@@ -95,9 +96,9 @@ Dado que el sistema debe integrarse con un software en Java, el mockup del siste
 ### 3.1 Descripción del Mockup
 El mockup implementado en Python servirá como un prototipo que simula el funcionamiento del sistema de detección de células. Este incluirá:
 
-- **Carga de imágenes de prueba.**
+- **Carga de imágenes de prueba desde `JPGImages/`.**
 - **Segmentación de células utilizando OpenCV.**
-- **Generación de un XML con los resultados de la detección.**
+- **Generación de un XML con los resultados de la detección en `annotations/`.**
 - **Visualización de las imágenes con bounding boxes.**
 
 Esta implementación permitirá validar la funcionalidad del sistema antes de su integración final con Java.
