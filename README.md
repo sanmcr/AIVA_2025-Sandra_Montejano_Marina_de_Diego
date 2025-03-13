@@ -13,8 +13,8 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados.
 
 ## Tecnologías Utilizadas
-- **Lenguaje principal:** Java
-- **Procesamiento de imágenes:** OpenCV (Java)
+- **Lenguaje principal:** Python
+- **Procesamiento de imágenes:** OpenCV (Python)
 - **Formato de salida:** XML
 - **Sistema operativo:** Windows
 
