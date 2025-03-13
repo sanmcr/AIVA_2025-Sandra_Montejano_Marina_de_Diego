@@ -6,20 +6,24 @@ from src.python.mockup import contar_celulas, generar_xml, mostrar_bounding_boxe
 
 class TestContadorGlobulos(unittest.TestCase):
 
-    def setUp(self):
-        """ Configuración inicial: Define rutas de prueba. """
-        self.imagen_path = "imag/JPGImages/BloodImage_00000.jpg"
-        self.xml_output_path = "img/annotations/resultado_test.xml"
+    @classmethod
+    def setUpClass(cls):
+        """ Configuración inicial global para las pruebas """
+        cls.imagen_path = "img/JPGImages/BloodImage_00000.jpg"
+        cls.xml_output_path = "img/annotations/resultado_test.xml"
 
     def test_carga_imagen(self):
-        """ Verifica que la imagen de prueba existe y se puede cargar. """
+        """ Verifica que la imagen de prueba existe y se puede cargar correctamente. """
         self.assertTrue(os.path.exists(self.imagen_path), "La imagen de prueba no existe.")
-        imagen = cv2.imread(self.imagen_path, 0)  # Cargar en escala de grises
-        self.assertIsNotNone(imagen, "No se pudo cargar la imagen.")
+        
+        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)  # Cargar en escala de grises
+        self.assertIsNotNone(imagen, "No se pudo cargar la imagen. Verifica la ruta o el formato.")
 
     def test_contar_celulas(self):
         """ Comprueba que el sistema detecta células en la imagen de prueba. """
-        imagen = cv2.imread(self.imagen_path, 0)
+        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)
+        self.assertIsNotNone(imagen, "La imagen no se pudo cargar correctamente.")
+
         num_celulas, bboxes = contar_celulas(imagen)
         self.assertGreater(num_celulas, 0, "Debe detectar al menos una célula.")
         self.assertIsInstance(bboxes, list, "Debe devolver una lista de bounding boxes.")
@@ -29,7 +33,6 @@ class TestContadorGlobulos(unittest.TestCase):
         bboxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
         generar_xml(bboxes, self.xml_output_path)
 
-        # Comprobar que el archivo se generó
         self.assertTrue(os.path.exists(self.xml_output_path), "El XML no se generó correctamente.")
 
         # Validar estructura del XML
@@ -37,7 +40,7 @@ class TestContadorGlobulos(unittest.TestCase):
         root = tree.getroot()
         self.assertEqual(root.tag, "celulas", "El XML debe contener una etiqueta <celulas>.")
 
-        # Validar contenido de las células detectadas
+        # Validar cantidad de células en XML
         celulas = root.findall("celula")
         self.assertEqual(len(celulas), len(bboxes), "El número de células en el XML no coincide con las detectadas.")
 
@@ -47,6 +50,8 @@ class TestContadorGlobulos(unittest.TestCase):
     def test_visualizacion_bounding_boxes(self):
         """ Comprueba que el método para mostrar bounding boxes no falla. """
         imagen = cv2.imread(self.imagen_path)
+        self.assertIsNotNone(imagen, "No se pudo cargar la imagen para la visualización.")
+
         _, bboxes = contar_celulas(imagen)
 
         try:
@@ -60,4 +65,3 @@ class TestContadorGlobulos(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
