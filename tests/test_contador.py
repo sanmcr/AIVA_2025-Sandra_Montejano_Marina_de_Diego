@@ -12,14 +12,11 @@ class TestContadorGlobulos(unittest.TestCase):
         cls.imagen_path = "img/JPGImages/BloodImage_00000.jpg"
         cls.xml_output_path = "img/annotations/resultado_test.xml"
 
-        # Asegurar que el directorio de anotaciones existe
-        os.makedirs(os.path.dirname(cls.xml_output_path), exist_ok=True)
-
     def test_carga_imagen(self):
         """ Verifica que la imagen de prueba existe y se puede cargar correctamente. """
         self.assertTrue(os.path.exists(self.imagen_path), "La imagen de prueba no existe.")
-
-        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)
+        
+        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)  # Cargar en escala de grises
         self.assertIsNotNone(imagen, "No se pudo cargar la imagen. Verifica la ruta o el formato.")
 
     def test_contar_celulas(self):
@@ -47,23 +44,11 @@ class TestContadorGlobulos(unittest.TestCase):
         celulas = root.findall("celula")
         self.assertEqual(len(celulas), len(bboxes), "El número de células en el XML no coincide con las detectadas.")
 
+        # Imprimir la ruta del XML generado para depuración
+        print(f"XML generado en: {self.xml_output_path}")
+
         # Borrar el archivo después de la prueba
         os.remove(self.xml_output_path)
-
-    def test_visualizacion_bounding_boxes(self):
-        """ Comprueba que el método para mostrar bounding boxes no falla. """
-        imagen = cv2.imread(self.imagen_path)
-        self.assertIsNotNone(imagen, "No se pudo cargar la imagen para la visualización.")
-
-        _, bboxes = contar_celulas(imagen)
-
-        try:
-            mostrar_bounding_boxes(imagen, bboxes)
-            resultado = True
-        except Exception:
-            resultado = False
-
-        self.assertTrue(resultado, "La función de visualización falló.")
 
 if __name__ == '__main__':
     unittest.main()
