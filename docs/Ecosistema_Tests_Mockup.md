@@ -47,6 +47,8 @@ Las pruebas están enfocadas en:
 - **Carga de imágenes:** Verificación de que la imagen se genera correctamente en memoria.
 - **Segmentación de células:** Comprobación de que el sistema detecta y segmenta correctamente las células.
 - **Generación de XML:** Validación de que el XML generado sigue la estructura correcta en formato **VOC Pascal** y se almacena en `xml_outputs/`.
+- **Adición y eliminación manual de bounding boxes:** Se verifica que el sistema permite manipular bounding boxes correctamente.
+- **Validación del número de objetos en el XML:** Se asegura que el número de células detectadas coincide con el número de objetos en el XML exportado.
 
 Ejemplo de pruebas unitarias en Python utilizando `unittest`:
 
@@ -62,27 +64,14 @@ class TestMockup(unittest.TestCase):
         self.imagen_prueba, self.coords = mockup.generar_imagen_mock(variar_celulas=True, agregar_ruido=True)
         self.imagen_invalida = None
 
-    def test_mockup_generacion(self):
-        """Verifica que el mockup genera una imagen correctamente"""
+    def test_mockup_carga_imagen(self):
+        """Verifica que la imagen generada por el mockup tiene el tamaño correcto"""
         self.assertIsNotNone(self.imagen_prueba)
         self.assertEqual(self.imagen_prueba.shape, (480, 640, 3))
-        self.assertGreaterEqual(len(self.coords), 5)
 
-    def test_mockup_conteo(self):
-        """Verifica que el mockup cuenta correctamente las células"""
-        conteo = mockup.contar_celulas_mock(self.imagen_prueba, self.coords)
-        self.assertEqual(conteo, len(self.coords))
-
-    def test_mockup_exportar_xml(self):
-        """Simula la generación y almacenamiento de un archivo XML"""
-        xml_file = mockup.generar_xml_mock(self.coords, "test_resultado.xml")
-        self.assertTrue(os.path.exists(xml_file))
-
-        with open(xml_file, "r", encoding="utf-8") as file:
-            xml_content = file.read()
-
-        root = ET.fromstring(xml_content)
-        self.assertEqual(root.tag, "annotation")
+    def test_mockup_segmentacion(self):
+        """Verifica que el mockup segmenta correctamente las células"""
+        self.assertGreater(len(self.coords), 0)
 
 if __name__ == '__main__':
     unittest.main()
@@ -91,7 +80,6 @@ if __name__ == '__main__':
 ---
 
 ## 3. Mockup del Sistema
-
 El mockup del sistema simula la funcionalidad del conteo de células y la generación de XML para pruebas iniciales.  
 Los elementos clave del mockup incluyen:
 
@@ -99,19 +87,11 @@ Los elementos clave del mockup incluyen:
 - **Segmentación de células utilizando OpenCV.**
 - **Generación de un archivo XML con formato VOC Pascal en `xml_outputs/`.**
 - **Simulación de errores en la carga y procesamiento de imágenes.**
+- **Manipulación manual de bounding boxes (agregar y eliminar).**
 - **Pruebas automatizadas para verificar que el sistema maneja correctamente imágenes y XML.**
-
-Para generar un archivo XML en el formato correcto, se puede ejecutar el siguiente comando:
-
-```sh
-python mockup.py
-```
-
-Esto guardará un archivo `resultado.xml` en la carpeta `xml_outputs/`.
 
 ---
 
 ## 4. Conclusión
-
 Este enfoque basado en test automáticos y mockups permite desarrollar un sistema de conteo de glóbulos rojos confiable, reduciendo errores humanos y optimizando el tiempo de análisis de cada imagen.  
-El uso de XML en formato VOC Pascal asegura compatibilidad con estándares de anotación de imágenes para análisis biomédico.
+El uso de **XML en formato VOC Pascal** asegura compatibilidad con estándares de anotación de imágenes para análisis biomédico.
