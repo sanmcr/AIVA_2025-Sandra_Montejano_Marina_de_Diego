@@ -13,6 +13,9 @@ def contar_celulas(imagen):
 
 def generar_xml(bboxes, xml_output_path="img/annotations/resultado.xml"):
     """ Genera un XML con la ubicación de las células detectadas """
+    if not bboxes:
+        raise ValueError("No se detectaron células para generar el XML.")
+
     root = ET.Element("celulas")
     for (x, y, w, h) in bboxes:
         ET.SubElement(root, "celula", x=str(x), y=str(y), width=str(w), height=str(h))
@@ -21,10 +24,9 @@ def generar_xml(bboxes, xml_output_path="img/annotations/resultado.xml"):
     os.makedirs(os.path.dirname(xml_output_path), exist_ok=True)
     tree = ET.ElementTree(root)
     tree.write(xml_output_path)
-    print(f"Archivo XML generado: {xml_output_path}")
 
 def mostrar_bounding_boxes(imagen, bboxes):
-    """ Dibuja los bounding boxes en la imagen y la muestra (si no está en GitHub Actions) """
+    """ Dibuja los bounding boxes en la imagen y la muestra si no está en GitHub Actions """
     for (x, y, w, h) in bboxes:
         cv2.rectangle(imagen, (x, y), (x + w, y + h), (0, 255, 0), 2)
     
@@ -32,7 +34,6 @@ def mostrar_bounding_boxes(imagen, bboxes):
         cv2.imshow("Detección de Células", imagen)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
 
 if __name__ == "__main__":
     imagen_path = "img/JPGImages/BloodImage_00000.jpg"
@@ -47,5 +48,4 @@ if __name__ == "__main__":
             num_celulas, bboxes = contar_celulas(imagen)
             print(f"Células detectadas: {num_celulas}")
             generar_xml(bboxes)
-            mostrar_bounding_boxes(imagen, bboxes)  # Eliminé `mostrar=True` ya que no existe en la función
-
+            mostrar_bounding_boxes(imagen, bboxes)
