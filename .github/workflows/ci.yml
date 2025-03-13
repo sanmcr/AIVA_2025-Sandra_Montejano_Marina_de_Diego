@@ -1,10 +1,17 @@
 name: Test automático del conteo de células
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - name: Clonar el repositorio
         uses: actions/checkout@v3
@@ -20,8 +27,8 @@ jobs:
       - name: Ejecutar tests
         run: python -m unittest discover tests
 
-      - name: Guardar XML generado como artefacto
+      - name: Guardar XML como artefacto
         uses: actions/upload-artifact@v4
         with:
           name: resultados-xml
-          path: img/annotations/
+          path: img/annotations/resultado_test.xml
