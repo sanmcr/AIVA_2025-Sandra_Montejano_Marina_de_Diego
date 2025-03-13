@@ -38,7 +38,7 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 2. Relacionar cada commit con su respectiva issue.
 3. Enviar un pull request con una descripción clara de los cambios.
 
-## 5. Licencia
+## Licencia
 
 Este software está protegido por derechos de autor (copyright) y no es de código abierto.  
 Todos los derechos están reservados a  VisioTech AI.  
