@@ -8,8 +8,8 @@ class TestContadorGlobulos(unittest.TestCase):
 
     def setUp(self):
         """ Configuración inicial: Define rutas de prueba. """
-        self.imagen_path = "imagenes_prueba/JPGImages/imagen1.jpg"
-        self.xml_output_path = "imagenes_prueba/annotations/resultado_test.xml"
+        self.imagen_path = "imag/JPGImages/BloodImage_00000.jpg"
+        self.xml_output_path = "img/annotations/resultado_test.xml"
 
     def test_carga_imagen(self):
         """ Verifica que la imagen de prueba existe y se puede cargar. """
