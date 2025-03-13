@@ -1,35 +1,38 @@
 name: Test automático del conteo de células
+
 on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Clonar el repositorio
-        uses: actions/checkout@v3
+    - name: Clonar el repositorio
+      uses: actions/checkout@v3
 
-      - name: Configurar Python
-        uses: actions/setup-python@v3
-        with:
-          python-version: 3.8
+    - name: Configurar Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: 3.8
 
-      - name: Instalar dependencias
-        run: pip install opencv-python numpy
+    - name: Instalar dependencias
+      run: pip install opencv-python numpy
 
-      - name: Ejecutar tests
-        run: python -m unittest discover tests
+    - name: Ejecutar tests
+      run: python -m unittest discover tests
 
-      - name: Verificar si el XML fue generado
-        run: |
-          if [ -f img/annotations/resultado_test.xml ]; then
-            echo "El archivo XML se generó correctamente."
-          else
-            echo "ERROR: No se generó ningún archivo XML."
-            exit 1
-          fi
+    - name: Verificar si el XML fue generado
+      run: |
+        ls -R  # 🔍 Muestra todos los archivos generados en GitHub Actions
+        if [ -f img/annotations/resultado_test.xml ]; then
+          echo "✅ El archivo XML se generó correctamente."
+        else
+          echo "❌ ERROR: No se generó ningún archivo XML."
+          exit 1
+        fi
 
-      - name: Subir archivo XML como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: resultados-xml
-          path: img/annotations/resultado_test.xml
+    - name: Subir archivo XML como artefacto
+      uses: actions/upload-artifact@v4
+      with:
+        name: resultados-xml
+        path: img/annotations/resultado_test.xml
