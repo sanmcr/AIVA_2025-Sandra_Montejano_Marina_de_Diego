@@ -28,7 +28,7 @@ jobs:
       run: python -m unittest discover tests
 
     - name: Guardar archivos XML generados
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4  
       with:
         name: resultados-xml
         path: img/annotations/
