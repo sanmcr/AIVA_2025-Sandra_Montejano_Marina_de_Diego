@@ -13,7 +13,7 @@ El sistema está compuesto por los siguientes módulos:
 - **Módulo de Captura de Imágenes:** Obtiene imágenes desde la cámara del microscopio y las envía al sistema.
 - **Módulo de Procesamiento de Imágenes:** Utiliza OpenCV en Python para segmentar y contar las células.
 - **Módulo de Generación de XML:** Convierte los resultados de la segmentación en un archivo **XML en formato VOC Pascal**.
-- **Módulo de Visualización:** Muestra la imagen segmentada con **bounding boxes** para la validación manual por parte del técnico.
+- **Módulo de Visualización:** Muestra la imagen segmentada para la validación manual por parte del técnico.
 - **Módulo de Almacenamiento:** Guarda las imágenes procesadas y los archivos XML en el sistema local.
 - **Módulo de Exportación:** Permite generar y guardar los archivos XML con los datos procesados.
 - **Interfaz de Usuario:** Permite a los técnicos interactuar con el sistema para validar y revisar los resultados.
@@ -47,7 +47,6 @@ Las pruebas están enfocadas en:
 - **Carga de imágenes:** Verificación de que la imagen se genera correctamente en memoria.
 - **Segmentación de células:** Comprobación de que el sistema detecta y segmenta correctamente las células.
 - **Generación de XML:** Validación de que el XML generado sigue la estructura correcta en formato **VOC Pascal** y se almacena en `xml_outputs/`.
-- **Visualización:** Comprobación de que la imagen segmentada se muestra correctamente con los bounding boxes.
 
 Ejemplo de pruebas unitarias en Python utilizando `unittest`:
 
@@ -87,7 +86,9 @@ class TestMockup(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-'''
+```
+
+---
 
 ## 3. Mockup del Sistema
 
@@ -104,3 +105,13 @@ Para generar un archivo XML en el formato correcto, se puede ejecutar el siguien
 
 ```sh
 python mockup.py
+```
+
+Esto guardará un archivo `resultado.xml` en la carpeta `xml_outputs/`.
+
+---
+
+## 4. Conclusión
+
+Este enfoque basado en test automáticos y mockups permite desarrollar un sistema de conteo de glóbulos rojos confiable, reduciendo errores humanos y optimizando el tiempo de análisis de cada imagen.  
+El uso de XML en formato VOC Pascal asegura compatibilidad con estándares de anotación de imágenes para análisis biomédico.
