@@ -1,34 +1,27 @@
-name: Test Automáticos en Python
+name: Test automático del conteo de células
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: [push, pull_request]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Clonar el repositorio
-      uses: actions/checkout@v3
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
 
-    - name: Configurar Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: 3.8
+      - name: Configurar Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: 3.8
 
-    - name: Instalar dependencias
-      run: pip install opencv-python numpy
+      - name: Instalar dependencias
+        run: pip install opencv-python numpy
 
-    - name: Ejecutar tests con unittest
-      run: python -m unittest discover tests
+      - name: Ejecutar tests
+        run: python -m unittest discover tests
 
-    - name: Guardar archivos XML generados
-      uses: actions/upload-artifact@v4  
-      with:
-        name: resultados-xml
-        path: img/annotations/
+      - name: Guardar XML generado como artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: resultados-xml
+          path: img/annotations/
