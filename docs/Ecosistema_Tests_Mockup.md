@@ -87,3 +87,20 @@ class TestMockup(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+'''
+
+## 3. Mockup del Sistema
+
+El mockup del sistema simula la funcionalidad del conteo de células y la generación de XML para pruebas iniciales.  
+Los elementos clave del mockup incluyen:
+
+- **Generación de imágenes simuladas de células.**
+- **Segmentación de células utilizando OpenCV.**
+- **Generación de un archivo XML con formato VOC Pascal en `xml_outputs/`.**
+- **Simulación de errores en la carga y procesamiento de imágenes.**
+- **Pruebas automatizadas para verificar que el sistema maneja correctamente imágenes y XML.**
+
+Para generar un archivo XML en el formato correcto, se puede ejecutar el siguiente comando:
+
+```sh
+python mockup.py
