@@ -3,7 +3,8 @@
 ## 1. Ecosistema del Sistema
 
 ### 1.1 Descripción General
-El sistema de conteo de glóbulos rojos automatizado se integra con un microscopio digital que proporciona imágenes en resolución **VGA (640x480 píxeles)**. El software segmenta y cuenta las células presentes en las imágenes capturadas, generando un archivo **XML estructurado** con los datos obtenidos.
+El sistema de conteo de glóbulos rojos automatizado se integra con un microscopio digital que proporciona imágenes en resolución **VGA (640x480 píxeles)**.  
+El software segmenta y cuenta las células presentes en las imágenes capturadas, generando un archivo **XML en formato VOC Pascal** con los datos obtenidos.
 
 ### 1.2 Componentes del Sistema
 El sistema está compuesto por los siguientes módulos:
@@ -11,8 +12,8 @@ El sistema está compuesto por los siguientes módulos:
 - **Microscopio (Fuente de Imágenes):** Captura las imágenes para su procesamiento.
 - **Módulo de Captura de Imágenes:** Obtiene imágenes desde la cámara del microscopio y las envía al sistema.
 - **Módulo de Procesamiento de Imágenes:** Utiliza OpenCV en Python para segmentar y contar las células.
-- **Módulo de Generación de XML:** Convierte los resultados de la segmentación en un archivo XML estructurado.
-- **Módulo de Visualización:** Muestra la imagen segmentada con bounding boxes para la validación manual por parte del técnico.
+- **Módulo de Generación de XML:** Convierte los resultados de la segmentación en un archivo **XML en formato VOC Pascal**.
+- **Módulo de Visualización:** Muestra la imagen segmentada con **bounding boxes** para la validación manual por parte del técnico.
 - **Módulo de Almacenamiento:** Guarda las imágenes procesadas y los archivos XML en el sistema local.
 - **Módulo de Exportación:** Permite generar y guardar los archivos XML con los datos procesados.
 - **Interfaz de Usuario:** Permite a los técnicos interactuar con el sistema para validar y revisar los resultados.
@@ -29,10 +30,9 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 7. Los datos se almacenan localmente en el sistema para su posterior análisis.
 
 ### 1.4 Tecnologías Utilizadas
-- **Lenguaje de Programación:** Python para el procesamiento de imágenes y generación del XML, Java para la integración con la aplicación del microscopio.
+- **Lenguaje de Programación:** Python para el procesamiento de imágenes y generación del XML.
 - **Procesamiento de Imágenes:** OpenCV en Python.
 - **Framework de Testing:** `unittest` en Python.
-- **Automatización de Pruebas:** GitHub Actions.
 - **Generación de XML:** Python con `xml.etree.ElementTree`.
 - **Interfaz Gráfica:** Java Swing o JavaFX.
 
@@ -41,69 +41,49 @@ El flujo de trabajo del sistema sigue la siguiente estructura:
 ## 2. Test Automáticos
 
 ### 2.1 Pruebas Unitarias
-Se implementarán pruebas unitarias en Python para validar el correcto funcionamiento de los módulos del sistema. Las pruebas estarán enfocadas en:
+Se han implementado pruebas unitarias en Python para validar el correcto funcionamiento de los módulos del sistema.  
+Las pruebas están enfocadas en:
 
-- **Carga de imágenes:** Verificación de que la imagen se carga correctamente en memoria desde `img/JPGImages/`.
+- **Carga de imágenes:** Verificación de que la imagen se genera correctamente en memoria.
 - **Segmentación de células:** Comprobación de que el sistema detecta y segmenta correctamente las células.
-- **Generación de XML:** Validación de que el XML generado contiene las coordenadas correctas de las células detectadas y se almacena en `img/annotations/`.
+- **Generación de XML:** Validación de que el XML generado sigue la estructura correcta en formato **VOC Pascal** y se almacena en `xml_outputs/`.
 - **Visualización:** Comprobación de que la imagen segmentada se muestra correctamente con los bounding boxes.
 
 Ejemplo de pruebas unitarias en Python utilizando `unittest`:
 
 ```python
 import unittest
-import cv2
-import os
+import mockup
 import xml.etree.ElementTree as ET
-from src.python.mockup import contar_celulas, generar_xml, mostrar_bounding_boxes
+import os
 
-class TestContadorGlobulos(unittest.TestCase):
-
+class TestMockup(unittest.TestCase):
     def setUp(self):
-        """ Configuración inicial: Define rutas de prueba. """
-        self.imagen_path = "img/JPGImages/imagen1.jpg"
-        self.xml_output_path = "img/annotations/resultado_test.xml"
+        """Prepara imágenes simuladas antes de cada test"""
+        self.imagen_prueba, self.coords = mockup.generar_imagen_mock(variar_celulas=True, agregar_ruido=True)
+        self.imagen_invalida = None
 
-    def test_carga_imagen(self):
-        """ Verifica que la imagen de prueba existe y se puede cargar. """
-        self.assertTrue(os.path.exists(self.imagen_path), "La imagen de prueba no existe.")
-        imagen = cv2.imread(self.imagen_path, 0)  # Cargar en escala de grises
-        self.assertIsNotNone(imagen, "No se pudo cargar la imagen.")
+    def test_mockup_generacion(self):
+        """Verifica que el mockup genera una imagen correctamente"""
+        self.assertIsNotNone(self.imagen_prueba)
+        self.assertEqual(self.imagen_prueba.shape, (480, 640, 3))
+        self.assertGreaterEqual(len(self.coords), 5)
 
-    def test_contar_celulas(self):
-        """ Comprueba que el sistema detecta células en la imagen de prueba. """
-        imagen = cv2.imread(self.imagen_path, 0)
-        num_celulas, bboxes = contar_celulas(imagen)
-        self.assertGreater(num_celulas, 0, "Debe detectar al menos una célula.")
+    def test_mockup_conteo(self):
+        """Verifica que el mockup cuenta correctamente las células"""
+        conteo = mockup.contar_celulas_mock(self.imagen_prueba, self.coords)
+        self.assertEqual(conteo, len(self.coords))
 
-    def test_generacion_xml(self):
-        """ Verifica que el XML generado contiene la estructura correcta. """
-        bboxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
-        generar_xml(bboxes, self.xml_output_path)
+    def test_mockup_exportar_xml(self):
+        """Simula la generación y almacenamiento de un archivo XML"""
+        xml_file = mockup.generar_xml_mock(self.coords, "test_resultado.xml")
+        self.assertTrue(os.path.exists(xml_file))
 
-        self.assertTrue(os.path.exists(self.xml_output_path), "El XML no se generó correctamente.")
-        tree = ET.parse(self.xml_output_path)
-        root = tree.getroot()
-        self.assertEqual(root.tag, "celulas", "El XML debe contener una etiqueta <celulas>.")
-        os.remove(self.xml_output_path)
+        with open(xml_file, "r", encoding="utf-8") as file:
+            xml_content = file.read()
+
+        root = ET.fromstring(xml_content)
+        self.assertEqual(root.tag, "annotation")
 
 if __name__ == '__main__':
     unittest.main()
-```
-
----
-
-## 3. Mockup del Sistema
-
-El mockup del sistema simula la funcionalidad del conteo de células y la generación de XML para pruebas iniciales.
-
-- **Carga de imágenes desde `img/JPGImages/`.**
-- **Segmentación de células utilizando OpenCV.**
-- **Generación de un XML en `img/annotations/`.**
-- **Visualización de imágenes segmentadas con bounding boxes.**
-
----
-
-## 4. Conclusión
-Este enfoque basado en test automáticos y mockups permitirá desarrollar un sistema de conteo de glóbulos rojos confiable, reduciendo errores humanos y optimizando el tiempo de análisis de cada imagen.
-
