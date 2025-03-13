@@ -10,7 +10,8 @@ def contar_celulas(imagen):
     bounding_boxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
     return len(bounding_boxes), bounding_boxes
 
-def generar_xml(bboxes, xml_output_path="img/annotations/resultado_test.xml"):
+def generar_xml(bboxes, xml_output_path="resultado_test.xml"):  # ⚠Ruta en el directorio raíz
+
     """ Genera un XML con la ubicación de las células detectadas """
 
     # Garantizar que el directorio existe antes de escribir el XML
