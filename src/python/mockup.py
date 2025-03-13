@@ -7,7 +7,6 @@ def contar_celulas(imagen):
     if imagen is None:
         raise ValueError("No se pudo cargar la imagen correctamente.")
 
-    # Simulación de detección de células
     bounding_boxes = [(10, 20, 30, 40), (50, 60, 70, 80)]
     return len(bounding_boxes), bounding_boxes
 
@@ -23,7 +22,8 @@ def generar_xml(bboxes, xml_output_path="img/annotations/resultado_test.xml"):
 
     tree = ET.ElementTree(root)
     tree.write(xml_output_path)
-    print(f"Archivo XML generado correctamente en: {xml_output_path}")
+    
+    print(f"✅ Archivo XML generado correctamente en: {xml_output_path}")  # 🔍 DEBUG PRINT
 
 def mostrar_bounding_boxes(imagen, bboxes):
     """ Dibuja los bounding boxes en la imagen y la muestra si no está en GitHub Actions """
@@ -39,12 +39,12 @@ if __name__ == "__main__":
     imagen_path = "img/JPGImages/BloodImage_00000.jpg"
 
     if not os.path.exists(imagen_path):
-        print("Error: La imagen de prueba no existe.")
+        print("❌ Error: La imagen de prueba no existe.")
     else:
         imagen = cv2.imread(imagen_path, cv2.IMREAD_GRAYSCALE)
         if imagen is None:
-            print("Error: No se pudo cargar la imagen.")
+            print("❌ Error: No se pudo cargar la imagen.")
         else:
             num_celulas, bboxes = contar_celulas(imagen)
-            print(f"Células detectadas: {num_celulas}")
+            print(f"🔍 Células detectadas: {num_celulas}")
             generar_xml(bboxes)
