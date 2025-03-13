@@ -12,11 +12,14 @@ class TestContadorGlobulos(unittest.TestCase):
         cls.imagen_path = "img/JPGImages/BloodImage_00000.jpg"
         cls.xml_output_path = "img/annotations/resultado_test.xml"
 
+        # Asegurar que el directorio de anotaciones existe
+        os.makedirs(os.path.dirname(cls.xml_output_path), exist_ok=True)
+
     def test_carga_imagen(self):
         """ Verifica que la imagen de prueba existe y se puede cargar correctamente. """
         self.assertTrue(os.path.exists(self.imagen_path), "La imagen de prueba no existe.")
-        
-        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)  # Cargar en escala de grises
+
+        imagen = cv2.imread(self.imagen_path, cv2.IMREAD_GRAYSCALE)
         self.assertIsNotNone(imagen, "No se pudo cargar la imagen. Verifica la ruta o el formato.")
 
     def test_contar_celulas(self):
@@ -57,9 +60,8 @@ class TestContadorGlobulos(unittest.TestCase):
         try:
             mostrar_bounding_boxes(imagen, bboxes)
             resultado = True
-        except Exception as e:
+        except Exception:
             resultado = False
-            print("Error al mostrar bounding boxes:", e)
 
         self.assertTrue(resultado, "La función de visualización falló.")
 
