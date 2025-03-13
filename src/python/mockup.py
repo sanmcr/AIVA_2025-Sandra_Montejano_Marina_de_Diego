@@ -25,6 +25,8 @@ def generar_xml(bboxes, xml_output_path="img/annotations/resultado.xml"):
     tree = ET.ElementTree(root)
     tree.write(xml_output_path)
 
+    print(f"XML generado correctamente en: {xml_output_path}")  # Mensaje para depuración
+
 def mostrar_bounding_boxes(imagen, bboxes):
     """ Dibuja los bounding boxes en la imagen y la muestra si no está en GitHub Actions """
     for (x, y, w, h) in bboxes:
