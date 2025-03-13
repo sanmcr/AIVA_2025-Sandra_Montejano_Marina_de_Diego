@@ -13,7 +13,7 @@ def contar_celulas(imagen):
 
 def generar_xml(bboxes, xml_output_path="img/annotations/resultado_test.xml"):
     """ Genera un XML con la ubicación de las células detectadas """
-    
+
     # Garantizar que el directorio existe antes de escribir el XML
     os.makedirs(os.path.dirname(xml_output_path), exist_ok=True)
 
@@ -30,7 +30,7 @@ def mostrar_bounding_boxes(imagen, bboxes):
     for (x, y, w, h) in bboxes:
         cv2.rectangle(imagen, (x, y), (x + w, y + h), (0, 255, 0), 2)
     
-    if "GITHUB_ACTIONS" not in os.environ:  
+    if "GITHUB_ACTIONS" not in os.environ:  # Evitar errores en CI/CD
         cv2.imshow("Detección de Células", imagen)
         cv2.waitKey(0)
         cv2.destroyAllWindows()
@@ -48,4 +48,3 @@ if __name__ == "__main__":
             num_celulas, bboxes = contar_celulas(imagen)
             print(f"Células detectadas: {num_celulas}")
             generar_xml(bboxes)
-            mostrar_bounding_boxes(imagen, bboxes)  # Eliminé `mostrar=True` ya que no existe en la función
