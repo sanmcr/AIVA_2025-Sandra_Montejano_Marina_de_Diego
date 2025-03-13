@@ -20,7 +20,13 @@ jobs:
         run: python -m unittest discover tests
 
       - name: Verificar si el XML fue generado
-        run: ls -R img/annotations || echo "Directorio vacío"
+        run: |
+          if [ -f img/annotations/resultado_test.xml ]; then
+            echo "El archivo XML se generó correctamente."
+          else
+            echo "ERROR: No se generó ningún archivo XML."
+            exit 1
+          fi
 
       - name: Subir archivo XML como artefacto
         uses: actions/upload-artifact@v4
