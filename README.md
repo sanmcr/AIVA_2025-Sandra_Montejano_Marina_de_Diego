@@ -95,6 +95,6 @@ El sistema ha sido diseñado de forma modular. Cada clase representa un componen
 - **Visualizador**: muestra resultados en pantalla.
 - **Almacenamiento**: guarda los resultados generados.
 
-📎 [Ver Diagrama UML](docs/DiagramadeClases.png)
+📎 [Ver Diagrama UML](docs/DiagramaClases.png)
 
 
