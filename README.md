@@ -22,7 +22,7 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 ## Instalación
 1. Clonar el repositorio desde GitHub:
    ```sh
-   git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
+   git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego```
 2. Importar el proyecto en un entorno de desarrollo compatible con Java (Eclipse, IntelliJ IDEA).
 3. Instalar dependencias necesarias (OpenCV, XML parsers).
 4. Compilar y ejecutar el software.
@@ -38,7 +38,7 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 Para ejecutar los tests unitarios del algoritmo de visión artificial:
 
 ```sh
-python -m unittest test_conteo_celulas.py
+python -m unittest test_conteo_celulas.py```
 
 
 ## Integración con Java
