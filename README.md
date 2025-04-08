@@ -13,9 +13,9 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados.
 
 ## Tecnologías Utilizadas
-- **Lenguaje principal:** Python
-- **Procesamiento de imágenes:** OpenCV (Python)
-- **Formato de salida:** XML
+- **Lenguaje principal:** Java
+- **Procesamiento de imágenes (prototipo):** Python + OpenCV
+- **Formato de salida:** XML (VOC Pascal)
 - **Sistema operativo:** Windows
 
 ## Instalación
@@ -62,4 +62,19 @@ Para más información, contactar con el equipo de desarrollo a través de GitHu
 Puedes encontrar el ecosistema del sistema, las pruebas automáticas y el mockup en el siguiente documento:
 
 📎 [Ver Ecosistema, Tests Automáticos y Mockup](docs/Ecosistema_Tests_Mockup.md)
+
+## Diagrama de Clases UML
+
+El sistema ha sido diseñado de forma modular. Cada clase representa un componente funcional:
+
+- **`CapturaImagen`**: obtiene o carga imágenes.
+- **`Imagen`**: representa los datos visuales.
+- **`ProcesadorImagenes`**: segmenta y cuenta células.
+- **`Celula`**: almacena coordenadas de cada célula detectada.
+- **`GeneradorXML`**: exporta resultados en formato XML.
+- **`Visualizador`**: muestra resultados en pantalla.
+- **`Almacenamiento`**: guarda los resultados generados.
+
+📎 [Ver Diagrama UML](docs/DiagramaClases.png)
+
 
