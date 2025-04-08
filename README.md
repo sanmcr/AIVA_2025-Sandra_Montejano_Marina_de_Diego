@@ -7,7 +7,7 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 
 ## Objetivo
 - Desarrollar un sistema de conteo automático de glóbulos rojos a partir de imágenes de microscopio (640x480), utilizando algoritmos de visión artificial en **Python**.
-- Extraer la información de las células y devolver un archivo **XML con su distribución** (formato VOC Pascal).
+- Extraer la información de las células y devolver un archivo XML con su distribución (formato VOC Pascal).
 - Integrar el sistema con el software existente del microscopio, desarrollado en **Java**, ejecutándose en su ordenador interno (Windows, Intel i7, 32GB RAM).
 - Generar un informe visual dentro de la aplicación de Java con la segmentación de las células.
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados de forma manual.
