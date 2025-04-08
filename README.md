@@ -13,10 +13,11 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados.
 
 ## Tecnologías Utilizadas
-- **Lenguaje principal:** Java
-- **Procesamiento de imágenes (prototipo):** Python + OpenCV
-- **Formato de salida:** XML (VOC Pascal)
-- **Sistema operativo:** Windows
+- **Lenguaje principal del algoritmo de visión:** Python
+- **Procesamiento de imágenes:** OpenCV
+- **Interfaz gráfica y aplicación existente:** Java (microscopio)
+- **Formato de comunicación:** XML (VOC Pascal)
+- **Sistema operativo objetivo:** Windows (PC integrado en el microscopio)
 
 ## Instalación
 1. Clonar el repositorio desde GitHub:
@@ -32,6 +33,18 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - Procesará la imagen para detectar y contar células.
 - Generará un XML con la distribución de células.
 - Presentará la segmentación en pantalla para validación manual.
+
+## Integración con Java
+
+El algoritmo de conteo de células ha sido desarrollado en Python por su facilidad para el procesamiento de imágenes.  
+El microscopio ya cuenta con un software en Java que proporcionará las imágenes.  
+El flujo de integración es el siguiente:
+
+1. El software Java guarda la imagen capturada.
+2. Se ejecuta el script de Python, que procesa la imagen y genera un archivo `XML`.
+3. El software Java interpreta el `XML` y muestra los resultados al técnico de laboratorio.
+
+Este enfoque permite mantener la interfaz actual y facilitar la integración dentro del sistema ya desplegado.
 
 ## Contribución
 1. Crear una nueva rama para cada nueva funcionalidad o corrección de errores.
