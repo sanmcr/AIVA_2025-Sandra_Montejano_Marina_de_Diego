@@ -38,7 +38,8 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 Para ejecutar los tests unitarios del algoritmo de visión artificial:
 
 ```sh
-python -m unittest test_conteo_celulas.py```
+python -m unittest test_conteo_celulas.py
+```
 
 
 ## Integración con Java
