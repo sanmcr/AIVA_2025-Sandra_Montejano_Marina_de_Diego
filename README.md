@@ -36,9 +36,7 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 
 ## Integración con Java
 
-El algoritmo de conteo de células ha sido desarrollado en Python por su facilidad para el procesamiento de imágenes.  
-El microscopio ya cuenta con un software en Java que proporcionará las imágenes.  
-El flujo de integración es el siguiente:
+El algoritmo de conteo de células ha sido desarrollado en Python por su facilidad para el procesamiento de imágenes. El microscopio ya cuenta con un software en Java que proporcionará las imágenes. El flujo de integración es el siguiente:
 
 1. El software Java guarda la imagen capturada.
 2. Se ejecuta el script de Python, que procesa la imagen y genera un archivo `XML`.
