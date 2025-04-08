@@ -67,13 +67,13 @@ Puedes encontrar el ecosistema del sistema, las pruebas automáticas y el mockup
 
 El sistema ha sido diseñado de forma modular. Cada clase representa un componente funcional:
 
-- **`CapturaImagen`**: obtiene o carga imágenes.
-- **`Imagen`**: representa los datos visuales.
-- **`ProcesadorImagenes`**: segmenta y cuenta células.
-- **`Celula`**: almacena coordenadas de cada célula detectada.
-- **`GeneradorXML`**: exporta resultados en formato XML.
-- **`Visualizador`**: muestra resultados en pantalla.
-- **`Almacenamiento`**: guarda los resultados generados.
+- **CapturaImagen**: obtiene o carga imágenes.
+- **Imagen**: representa los datos visuales.
+- **ProcesadorImagenes**: segmenta y cuenta células.
+- **Celula**: almacena coordenadas de cada célula detectada.
+- **GeneradorXML**: exporta resultados en formato XML.
+- **Visualizador**: muestra resultados en pantalla.
+- **Almacenamiento**: guarda los resultados generados.
 
 📎 [Ver Diagrama UML](docs/DiagramaClases.png)
 
