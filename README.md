@@ -43,6 +43,14 @@ Una vez instaladas las dependencias, puedes ejecutar el procesamiento de las im�
 python main.py
 ```
 
+Esto realiza las siguientes tareas:
+
+- Procesa todas las imágenes dentro de la carpeta `./JPEGImages`
+- Detecta y cuenta los glóbulos rojos automáticamente
+- Genera un archivo XML por imagen con las coordenadas de cada célula en la carpeta `./results`
+- Muestra una de las imágenes segmentadas por pantalla para validación visual
+
+
 
  ## Pruebas Automáticas
 
