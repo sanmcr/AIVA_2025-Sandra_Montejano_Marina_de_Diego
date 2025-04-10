@@ -35,13 +35,14 @@ git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
 
 cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
 ```
+## Uso del sistema
 
+Una vez instaladas las dependencias, puedes ejecutar el procesamiento de las imágenes con:
 
-## Uso
-- El software recibirá imágenes desde la aplicación del microscopio.
-- Procesará la imagen para detectar y contar células.
-- Generará un XML con la distribución de células.
-- Presentará la segmentación en pantalla para validación manual.
+```bash
+python main.py
+```
+
 
  ## Pruebas Automáticas
 
