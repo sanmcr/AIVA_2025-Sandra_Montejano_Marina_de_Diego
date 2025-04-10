@@ -1,6 +1,8 @@
-Repositorio para la evolución del trabajo. Sandra Montejano y Marina de Diego.
+# AIVA_2025 – Conteo de Glóbulos Rojos
 
-# AIVA_2025: Conteo de Células de Glóbulos Rojos
+Repositorio del sistema de Visión Artificial para el microscopio digital.  
+Autoras: Sandra Montejano y Marina de Diego.
+
 
 ## Introducción
 Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos rojos en imágenes obtenidas desde un microscopio con cámara integrada. Actualmente, este proceso se realiza manualmente, lo que es tedioso y propenso a errores. Con esta solución, se busca mejorar la eficiencia y reducir costos al permitir que el sistema cuente y segmente las células automáticamente.
