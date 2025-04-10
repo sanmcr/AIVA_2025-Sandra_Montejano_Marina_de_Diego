@@ -37,3 +37,14 @@ Instala los requisitos necesarios con:
 ```bash
 pip install -r requirements.txt
 ```
+
+## Nota sobre la imagen de prueba
+
+Para que los tests se ejecuten correctamente, asegúrate de tener una imagen válida en la ruta especificada dentro del script:
+
+```python
+self.image_path = r'C:\ruta\a\tu\imagen.jpg'
+```
+
+Modifícalo si es necesario antes de lanzar los tests.
+
