@@ -64,10 +64,15 @@ python -m unittest unit_test.py
 
 ### Tests incluidos:
 
-- `test_segmentacion_detecta_celulas`: verifica que el conteo se aproxima al número real (anotado en un archivo XML).
+- `test_segmentacion`: verifica que la segmentación devuelve una lista válida de objetos `Erythrocyte`.
+- `test_segmentacion_sin_resultados_manejado`: comprueba que el sistema maneja correctamente el caso de no detectar células.
 - `test_exportar_resultados_crea_y_elimina_archivo`: crea un archivo XML y luego lo elimina tras comprobar que es correcto.
 - `test_carga_imagen_valida`: valida que las imágenes tienen las dimensiones esperadas.
+- `test_conteo_celulas`: verifica que el conteo de células coincide con el número de objetos en la lista.
 - `test_agregar_bounding_box_manual` y `test_eliminar_bounding_box_manual`: simulan edición manual de regiones detectadas.
+- `test_tipo_dato_segmentacion`: valida que el resultado de la segmentación es una lista de `Erythrocyte`.
+- `test_tipo_dato_xml`: valida que el XML generado es un `str`.
+- `test_tipo_dato_conteo`: verifica que el conteo de células devuelve un `int`.
 
 
 ## Integración con Java
