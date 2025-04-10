@@ -16,3 +16,22 @@ Desde la carpeta raíz del proyecto, ejecuta el siguiente comando:
 
 ```bash
 python -m unittest tests/unit_test.py
+
+
+## Qué se comprueba
+
+El archivo incluye pruebas que validan:
+
+- Carga y validación de una imagen.
+- Segmentación de eritrocitos (tipo, estructura, presencia).
+- Conteo de células y consistencia con la lista de resultados.
+- Edición manual de bounding boxes.
+- Generación y validez del archivo XML (formato VOC Pascal).
+- Tipos de retorno correctos de las funciones clave.
+
+## Dependencias
+
+Instala los requisitos necesarios con:
+
+```bash
+pip install -r requirements.txt
