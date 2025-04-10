@@ -44,6 +44,11 @@ python cellsDetector.py --images_path ./JPEGImages --results_path ./results --sa
 
 ```
 
+- `--images_path`: ruta a la carpeta que contiene las imágenes a procesar.
+- `--results_path`: carpeta donde se guardarán los archivos XML generados.
+- `--save_images`: si es `True`, se guardan también las imágenes con las bounding boxes dibujadas.
+
+
 Esto realiza las siguientes tareas:
 
 - Procesa todas las imágenes dentro de la carpeta `./JPEGImages`
