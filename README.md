@@ -29,9 +29,21 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 
 ### Requisitos del sistema
 
-- Python 3.12
-- Sistema operativo: Windows
-- Librerías: OpenCV, NumPy
+El sistema ha sido diseñado para ser ejecutado con `Python 3.12`. Además, se ha hecho uso de los siguiente paquetes y sus versiones:
+- OpenCV 4.10.0
+```bash
+pip install opencv-python==4.10.0
+```
+- Numpy 2.2.4
+ ```bash
+pip install numpy==2.2.4
+```
+La instalación de las librerías también se puede realizar a través de:
+```bash
+pip install -r requirements.txt
+```
+
+Adicionalmente, el sistema operativo con el que se ha diseñado el sistema es Windows
 
 ### Clonar el repositorio
 ```bash
