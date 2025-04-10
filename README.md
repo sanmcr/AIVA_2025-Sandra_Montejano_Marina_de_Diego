@@ -44,13 +44,18 @@ cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
 Una vez instaladas las dependencias, puedes ejecutar el procesamiento de las imágenes con:
 
 ```bash
-python cellsDetector.py --images_path ./JPEGImages --results_path ./results --save_images True
-
+python cellsDetector.py --images_path ./JPEGImages --results_path ./results
 ```
 
-- `--images_path`: ruta a la carpeta que contiene las imágenes a procesar.
-- `--results_path`: carpeta donde se guardarán los archivos XML generados.
-- `--save_images`: si es `True`, se guardan también las imágenes con las bounding boxes dibujadas.
+También puedes añadir el argumento --save_images si deseas guardar las imágenes procesadas con las bounding boxes:
+
+```bash
+python cellsDetector.py --images_path ./JPEGImages --results_path ./results --save_images True
+```
+
+- `--images_path`: ruta a la carpeta que contiene las imágenes a procesar (obligatorio).
+- `--results_path`:  carpeta donde se guardarán los archivos XML generados (obligatorio).
+- `--save_images`: si es True, se guardan también las imágenes con las bounding boxes. Por defecto es False, por lo que las imágenes no se guardan a menos que se indique (opcional).
 
 
 Esto realiza las siguientes tareas:
