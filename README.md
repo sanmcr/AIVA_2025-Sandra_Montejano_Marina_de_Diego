@@ -40,7 +40,8 @@ cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
 Una vez instaladas las dependencias, puedes ejecutar el procesamiento de las imágenes con:
 
 ```bash
-python main.py
+python cellsDetector.py --images_path ./JPEGImages --results_path ./results --save_images True
+
 ```
 
 Esto realiza las siguientes tareas:
