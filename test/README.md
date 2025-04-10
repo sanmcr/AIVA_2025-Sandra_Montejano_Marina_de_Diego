@@ -16,6 +16,7 @@ Desde la carpeta raíz del proyecto, ejecuta el siguiente comando:
 
 ```bash
 python -m unittest tests/unit_test.py
+```
 
 
 ## Qué se comprueba
@@ -35,3 +36,4 @@ Instala los requisitos necesarios con:
 
 ```bash
 pip install -r requirements.txt
+```
