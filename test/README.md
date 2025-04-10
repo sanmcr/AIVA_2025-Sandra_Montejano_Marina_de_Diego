@@ -10,7 +10,7 @@ Este módulo contiene las pruebas automáticas desarrolladas para validar el fun
 
 ---
 
-## 🧪Cómo ejecutar los tests
+## Cómo ejecutar los tests
 
 Desde la carpeta raíz del proyecto, ejecuta el siguiente comando:
 
