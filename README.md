@@ -22,13 +22,18 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - **Sistema operativo objetivo:** Windows (PC integrado en el microscopio)
 
 ## Instalación
-1. Clonar el repositorio desde GitHub:
-   ```sh
-   git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
-   ```
-2. Importar el proyecto en un entorno de desarrollo compatible con Java (Eclipse, IntelliJ IDEA).
-3. Instalar dependencias necesarias (OpenCV, XML parsers).
-4. Compilar y ejecutar el software.
+
+### Requisitos del sistema
+
+- Python 3.12
+- Sistema operativo: Windows
+- Librerías: OpenCV, NumPy
+
+### Clonar el repositorio
+```bash
+git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
+cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
+
 
 ## Uso
 - El software recibirá imágenes desde la aplicación del microscopio.
