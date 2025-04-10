@@ -1,39 +1,22 @@
-# Proyecto: Conteo de Células - Tests y Mockup
+# TTests del Sistema de Conteo de Glóbulos Rojos
 
-Este proyecto implementa un mockup para simular el procesamiento de imágenes de glóbulos rojos, permitiendo probar la funcionalidad del sistema sin necesidad del código real.  
-Incluye tests automáticos para verificar que el mockup funciona correctamente y maneja diferentes situaciones antes de implementar la versión final del software.
+Este módulo contiene las pruebas automáticas desarrolladas para validar el funcionamiento del sistema final de detección y conteo de eritrocitos en imágenes de microscopio.
 
 ---
 
-## 1. Requisitos Previos
+##  Archivos
 
-Para ejecutar los tests, es necesario contar con Python 3.x y las librerías requeridas.  
-Estas pueden instalarse utilizando el siguiente comando:
+- `unit_test.py`: contiene los tests principales del sistema real implementado en `clases.py`.
+
+---
+
+## 🧪Cómo ejecutar los tests
+
+Desde la carpeta raíz del proyecto, ejecuta el siguiente comando:
 
 ```bash
-pip install -r requirements.txt
-```
+python -m unittest tests/unit_test.py
 
----
-
-## 2. Estructura del Proyecto
-
-El proyecto está compuesto por los siguientes archivos:
-
-```
-📚 proyecto_conteo_celulas/
-│── mockup.py                 -> Simulación del conteo de células y generación de XML
-│── test_conteo_celulas.py     -> Pruebas automáticas sobre el mockup
-│── requirements.txt           -> Librerías necesarias para la ejecución
-│── README.txt                 -> Guía para ejecutar los tests
-│── xml_outputs/               -> Carpeta donde se guardan los archivos XML generados
-```
-
----
-
-## 3. Cómo Ejecutar los Tests
-
-Para ejecutar los tests, seguir estos pasos:
 
 1. Abrir una terminal o línea de comandos en la carpeta del proyecto.
 2. Ejecutar el siguiente comando:
