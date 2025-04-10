@@ -32,7 +32,9 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 ### Clonar el repositorio
 ```bash
 git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
-cd AIVA_2025-Sandra_Montejano_Marina_de_Diego```
+
+cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
+```
 
 
 ## Uso
