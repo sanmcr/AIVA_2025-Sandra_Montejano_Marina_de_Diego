@@ -54,10 +54,12 @@ Esto realiza las siguientes tareas:
 
  ## Pruebas Automáticas
 
-Para ejecutar los tests unitarios del algoritmo de visión artificial:
+Este proyecto incluye pruebas unitarias para validar el correcto funcionamiento del sistema de detección y conteo.
 
-```sh
-python -m unittest test_conteo_celulas.py
+### Ejecutar todos los tests:
+
+```bash
+python -m unittest unit_test.py
 ```
 
 
