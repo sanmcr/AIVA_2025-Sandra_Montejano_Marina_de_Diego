@@ -14,6 +14,10 @@ Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos
 - Generar un informe visual dentro de la aplicación de Java con la segmentación de las células.
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados de forma manual.
 
+  > Nota: Toda la lógica del sistema está implementada en el archivo `clases.py`.  
+> El script `cellsDetector.py` es el punto de entrada que utiliza estas clases para ejecutar el procesamiento completo.
+
+
 ## Tecnologías Utilizadas
 - **Lenguaje principal del algoritmo de visión:** Python
 - **Procesamiento de imágenes:** OpenCV
