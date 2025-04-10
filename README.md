@@ -62,6 +62,13 @@ Este proyecto incluye pruebas unitarias para validar el correcto funcionamiento 
 python -m unittest unit_test.py
 ```
 
+### Tests incluidos:
+
+- `test_segmentacion_detecta_celulas`: verifica que el conteo se aproxima al número real (anotado en un archivo XML).
+- `test_exportar_resultados_crea_y_elimina_archivo`: crea un archivo XML y luego lo elimina tras comprobar que es correcto.
+- `test_carga_imagen_valida`: valida que las imágenes tienen las dimensiones esperadas.
+- `test_agregar_bounding_box_manual` y `test_eliminar_bounding_box_manual`: simulan edición manual de regiones detectadas.
+
 
 ## Integración con Java
 
