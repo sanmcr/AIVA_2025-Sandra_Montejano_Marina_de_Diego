@@ -1,0 +1,94 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Identificación del proyecto -->
+    <groupId>grupocelulas.detector</groupId>
+    <artifactId>detector-eritrocitos</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>Detector de Eritrocitos</name>
+    <description>Librería Java que llama un ejecutable nativo (Python .exe) para detección de eritrocitos.</description>
+
+
+    <!-- Información del desarrollador (opcional) -->
+    <developers>
+        <developer>
+            <id>m.dediego.2024</id>
+            <name>Marina de Diego Peña</name>
+            <email>m.dediego.2024@alumnos.urjc.es</email>
+            <organization>URJC</organization>
+        </developer>
+        <developer>
+            <id>s.montejano.2016</id>
+            <name>Sandra Montejano Cánovas</name>
+            <email>s.montejano.2016@alumnos.urjc.es</email>
+            <organization>URJC</organization>
+        </developer>
+    </developers>
+
+    <!-- Licencia (opcional pero recomendable) -->
+    <licenses>
+        <license>
+            <name>Copyright</name>
+        </license>
+    </licenses>
+
+    <!-- Dependencias necesarias (vacías si no usas ninguna externa) -->
+    <dependencies>
+        <!-- Ejemplo de dependencia común, puedes eliminar si no usas JSON, etc. -->
+        <!--
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+        -->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Plugin para compilar correctamente -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin para incluir recursos como .exe dentro del .jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <include>**/*.exe</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                            <outputDirectory>${project.build.directory}/classes</outputDirectory>  <!-- Asegúrate de que esta línea esté aquí -->
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
