@@ -27,81 +27,38 @@ Internamente, la librería contiene un ejecutable que encapsula el algoritmo de 
 - **Formato de comunicación:** XML (VOC Pascal)
 - **Sistema operativo objetivo:** Windows (PC integrado en el microscopio)
 
-## Instalación
+## Uso de la librería `.jar`
 
-### Requisitos del sistema
+Esta herramienta se distribuye como una librería Java en formato `.jar` que se puede integrar fácilmente en cualquier proyecto Java.
 
-El sistema ha sido diseñado para ser ejecutado con `Python 3.12`. Además, se ha hecho uso de los siguiente paquetes y sus versiones:
-- OpenCV 4.10.0
-```bash
-pip install opencv-python==4.10.0
+### Requisitos
+- Java 8 o superior
+- Java Development Kit (JDK)
+- IDE recomendado: IntelliJ IDEA, Eclipse, NetBeans, etc.
+
+### Instrucciones de integración
+
+1. Descarga el archivo desde la sección [Releases de GitHub](https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego/releases).
+2. Copia el archivo `detector-eritrocitos-1.0.0.jar` en una carpeta dentro de tu proyecto (por ejemplo, `lib/`).
+3. Añádelo al classpath de tu proyecto:
+   - IntelliJ: clic derecho en el `.jar` → `Add as Library`.
+   - Eclipse: clic derecho en el proyecto → `Build Path` → `Add External JARs`.
+4. Importa la clase principal en tu código:
+```java
+import grupocelulas.detector.DetectorEritrocitos;ç
 ```
-- Numpy 2.2.4
- ```bash
-pip install numpy==2.2.4
+5. Llama a la función detectar:
+```java
+DetectorEritrocitos detector = new DetectorEritrocitos();
+List<String> resultados = detector.detectar(
+    "ruta/a/imagenes",
+    "ruta/a/resultados",
+    true  // o false, según si quieres guardar las imágenes procesadas
+);
 ```
-La instalación de las librerías también se puede realizar a través de:
-```bash
-pip install -r requirements.txt
-```
-
-Adicionalmente, el sistema operativo con el que se ha diseñado el sistema es Windows
-
-### Clonar el repositorio
-```bash
-git clone https://github.com/sanmcr/AIVA_2025-Sandra_Montejano_Marina_de_Diego
-
-cd AIVA_2025-Sandra_Montejano_Marina_de_Diego
-```
-## Uso del sistema
-
-Una vez instaladas las dependencias, puedes ejecutar el procesamiento de las imágenes con:
-
-```bash
-python cellsDetector.py --images_path ./JPEGImages --results_path ./results
-```
-
-También puedes añadir el argumento --save_images si deseas guardar las imágenes procesadas con las bounding boxes:
-
-```bash
-python cellsDetector.py --images_path ./JPEGImages --results_path ./results --save_images True
-```
-
-- `--images_path`: ruta a la carpeta que contiene las imágenes a procesar (obligatorio).
-- `--results_path`:  carpeta donde se guardarán los archivos XML generados (obligatorio).
-- `--save_images`: si es True, se guardan también las imágenes con las bounding boxes. Por defecto es False, por lo que las imágenes no se guardan a menos que se indique (opcional).
+Esto generará archivos XML con las coordenadas de las células detectadas.
 
 
-Esto realiza las siguientes tareas:
-
-- Procesa todas las imágenes dentro de la carpeta `./JPEGImages`
-- Detecta y cuenta los glóbulos rojos automáticamente
-- Genera un archivo XML por imagen con las coordenadas de cada célula en la carpeta `./results`
-- Muestra una de las imágenes segmentadas por pantalla para validación visual
-
-
-
- ## Pruebas Automáticas
-
-Este proyecto incluye pruebas unitarias para validar el correcto funcionamiento del sistema de detección y conteo.
-
-### Ejecutar todos los tests:
-
-```bash
-python -m unittest unit_test.py
-```
-
-### Tests incluidos:
-
-- `test_segmentacion`: verifica que la segmentación devuelve una lista válida de objetos `Erythrocyte`.
-- `test_segmentacion_sin_resultados_manejado`: comprueba que el sistema maneja correctamente el caso de no detectar células.
-- `test_exportar_resultados_crea_y_elimina_archivo`: crea un archivo XML y luego lo elimina tras comprobar que es correcto.
-- `test_carga_imagen_valida`: valida que las imágenes tienen las dimensiones esperadas.
-- `test_conteo_celulas`: verifica que el conteo de células coincide con el número de objetos en la lista.
-- `test_agregar_bounding_box_manual` y `test_eliminar_bounding_box_manual`: simulan edición manual de regiones detectadas.
-- `test_tipo_dato_segmentacion`: valida que el resultado de la segmentación es una lista de `Erythrocyte`.
-- `test_tipo_dato_xml`: valida que el XML generado es un `str`.
-- `test_tipo_dato_conteo`: verifica que el conteo de células devuelve un `int`.
 
 
 ## Integración con Java
