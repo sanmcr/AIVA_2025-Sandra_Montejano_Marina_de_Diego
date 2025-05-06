@@ -89,6 +89,9 @@ Si deseas revisar o extender el comportamiento interno, puedes ejecutar los test
 python -m unittest unit_test.py
 ```
 
+Archivo relacionado: `unit_test.py`, ubicado en el directorio raíz del repositorio.
+
+
 ## Contribución
 1. Crear una nueva rama para cada nueva funcionalidad o corrección de errores.
 2. Relacionar cada commit con su respectiva issue.
