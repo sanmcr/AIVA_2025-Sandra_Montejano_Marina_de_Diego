@@ -93,9 +93,17 @@ Archivo relacionado: `unit_test.py`, ubicado en el directorio raíz del reposito
 
 
 ## Contribución
-1. Crear una nueva rama para cada nueva funcionalidad o corrección de errores.
-2. Relacionar cada commit con su respectiva issue.
-3. Enviar un pull request con una descripción clara de los cambios.
+
+Este apartado se ha utilizado para gestionar las tareas del proyecto, incluyendo estimaciones de tiempo e issues no previstas.
+
+- Todas las funcionalidades implementadas están registradas como *issues* y han sido marcadas como cerradas una vez completadas.
+- Se ha indicado el tiempo estimado inicialmente y el tiempo real empleado en cada tarea.
+- En caso de que surgieran modificaciones o funcionalidades no contempladas al inicio, se han añadido nuevas issues para reflejarlo.
+
+Además, durante el desarrollo:
+1. Se ha trabajado con ramas separadas para nuevas funcionalidades y correcciones.
+2. Cada commit se ha vinculado a su issue correspondiente.
+3. Se han seguido buenas prácticas de control de versiones con pull requests claros y documentados.
 
 ## Licencia
 
