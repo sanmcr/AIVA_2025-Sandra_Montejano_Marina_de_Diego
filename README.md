@@ -50,6 +50,7 @@ import grupocelulas.detector.DetectorEritrocitos;
 5. Llama a la función detectar:
 ```java
 DetectorEritrocitos detector = new DetectorEritrocitos();
+
 List<String> resultados = detector.detectar(
     "C:\\ruta\\a\\imagenes", 
     "C:\\ruta\\a\\resultados", 
