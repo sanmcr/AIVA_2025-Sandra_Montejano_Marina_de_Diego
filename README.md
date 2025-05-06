@@ -54,8 +54,7 @@ DetectorEritrocitos detector = new DetectorEritrocitos();
 List<String> resultados = detector.detectar(
     "C:\\ruta\\a\\imagenes", 
     "C:\\ruta\\a\\resultados", 
-    true
-);
+    true);
 ```
 
 > Nota:  recuerda usar rutas absolutas o correctamente formateadas para tu sistema operativo (por ejemplo, con doble barra invertida en Windows).
