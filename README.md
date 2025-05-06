@@ -16,8 +16,8 @@ Internamente, la librería contiene un ejecutable que encapsula el algoritmo de 
 - Generar un informe visual dentro de la aplicación de Java con la segmentación de las células.
 - Permitir la supervisión de los técnicos de laboratorio para validar los resultados de forma manual.
 
-> Nota: Toda la lógica del sistema está implementada en el archivo `clases.py`.  
-> El script `cellsDetector.py` es el punto de entrada que utiliza estas clases para ejecutar el procesamiento completo.
+> Nota: La lógica interna del sistema fue desarrollada en Python, pero ha sido encapsulada en un ejecutable que está integrado en la librería `.jar`, por lo que el usuario no necesita acceder ni ejecutar ningún script directamente.
+
 
 
 ## Tecnologías Utilizadas
