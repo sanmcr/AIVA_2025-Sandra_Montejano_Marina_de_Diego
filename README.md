@@ -51,11 +51,13 @@ import grupocelulas.detector.DetectorEritrocitos;
 ```java
 DetectorEritrocitos detector = new DetectorEritrocitos();
 List<String> resultados = detector.detectar(
-    "ruta/a/imagenes",
-    "ruta/a/resultados",
-    true  // o false, según si quieres guardar las imágenes procesadas
+    "C:\\ruta\\a\\imagenes", 
+    "C:\\ruta\\a\\resultados", 
+    true
 );
 ```
+// Nota: recuerda usar rutas absolutas o correctamente formateadas para tu sistema operativo (por ejemplo, con doble barra invertida en Windows).
+
 Esto generará archivos XML con las coordenadas de las células detectadas.
 
 ## Integración con Java
