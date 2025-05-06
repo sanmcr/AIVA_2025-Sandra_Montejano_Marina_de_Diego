@@ -5,7 +5,9 @@ Autoras: Sandra Montejano y Marina de Diego.
 
 
 ## Introducción
-Este proyecto tiene como objetivo automatizar el conteo de células de glóbulos rojos en imágenes obtenidas desde un microscopio con cámara integrada. Actualmente, este proceso se realiza manualmente, lo que es tedioso y propenso a errores. Con esta solución, se busca mejorar la eficiencia y reducir costos al permitir que el sistema cuente y segmente las células automáticamente.
+Este proyecto tiene como objetivo automatizar el conteo de glóbulos rojos en imágenes obtenidas desde un microscopio con cámara integrada. La solución ha sido empaquetada como una librería `.jar`, diseñada para integrarse en aplicaciones Java.
+
+Internamente, la librería contiene un ejecutable que encapsula el algoritmo de visión artificial desarrollado en Python, por lo que no es necesario instalar Python ni sus dependencias. Esto permite a cualquier desarrollador de software Java integrar fácilmente el sistema en sus aplicaciones sin preocuparse por la configuración del entorno de análisis de imágenes.
 
 ## Objetivo
 - Desarrollar un sistema de conteo automático de glóbulos rojos a partir de imágenes de microscopio (640x480), utilizando algoritmos de visión artificial en **Python**.
