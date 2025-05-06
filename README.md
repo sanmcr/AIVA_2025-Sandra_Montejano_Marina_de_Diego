@@ -73,6 +73,21 @@ La clase principal `DetectorEritrocitos` permite realizar el análisis automáti
 
 El archivo `.jar` incluye internamente un ejecutable que encapsula la lógica del procesamiento, por lo que no es necesario instalar Python ni bibliotecas externas. Todo el procesamiento se realiza de forma transparente para el usuario Java.
 
+## Pruebas internas del sistema
+
+Antes de empaquetar el sistema como una librería `.jar`, se desarrollaron pruebas unitarias sobre el núcleo del algoritmo de visión artificial implementado en Python.
+
+Estas pruebas permitieron validar la segmentación de glóbulos rojos, la generación de XML y el comportamiento ante imágenes con y sin células detectables.
+
+> Nota: estas pruebas están dirigidas a desarrolladores. No es necesario ejecutarlas para utilizar la librería Java.
+
+### Ejecutar las pruebas
+
+Si deseas revisar o extender el comportamiento interno, puedes ejecutar los tests con:
+
+```bash
+python -m unittest unit_test.py
+```
 
 ## Contribución
 1. Crear una nueva rama para cada nueva funcionalidad o corrección de errores.
