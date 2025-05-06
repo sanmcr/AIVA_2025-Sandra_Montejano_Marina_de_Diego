@@ -45,7 +45,7 @@ Esta herramienta se distribuye como una librería Java en formato `.jar` que se 
    - Eclipse: clic derecho en el proyecto → `Build Path` → `Add External JARs`.
 4. Importa la clase principal en tu código:
 ```java
-import grupocelulas.detector.DetectorEritrocitos;ç
+import grupocelulas.detector.DetectorEritrocitos;
 ```
 5. Llama a la función detectar:
 ```java
@@ -58,18 +58,18 @@ List<String> resultados = detector.detectar(
 ```
 Esto generará archivos XML con las coordenadas de las células detectadas.
 
-
-
-
 ## Integración con Java
 
-El algoritmo de conteo de células ha sido desarrollado en Python por su facilidad para el procesamiento de imágenes. El microscopio ya cuenta con un software en Java que proporcionará las imágenes. El flujo de integración es el siguiente:
+El sistema se ha empaquetado como una librería `.jar` que puede integrarse en cualquier proyecto Java.
 
-1. El software Java guarda la imagen capturada.
-2. Se ejecuta el script de Python, que procesa la imagen y genera un archivo `XML`.
-3. El software Java interpreta el `XML` y muestra los resultados al técnico de laboratorio.
+La clase principal `DetectorEritrocitos` permite realizar el análisis automático de imágenes mediante la función `detectar`, que recibe como parámetros:
 
-Este enfoque permite mantener la interfaz actual y facilitar la integración dentro del sistema ya desplegado.
+- La ruta a la carpeta con las imágenes.
+- La ruta de salida para los archivos XML generados.
+- Una bandera `true/false` para indicar si se desea guardar las imágenes procesadas.
+
+El archivo `.jar` incluye internamente un ejecutable que encapsula la lógica del procesamiento, por lo que no es necesario instalar Python ni bibliotecas externas. Todo el procesamiento se realiza de forma transparente para el usuario Java.
+
 
 ## Contribución
 1. Crear una nueva rama para cada nueva funcionalidad o corrección de errores.
