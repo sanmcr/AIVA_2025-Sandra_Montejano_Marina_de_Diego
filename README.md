@@ -57,6 +57,8 @@ List<String> resultados = detector.detectar(
     true
 );
 ```
+
+
 // Nota: recuerda usar rutas absolutas o correctamente formateadas para tu sistema operativo (por ejemplo, con doble barra invertida en Windows).
 
 Esto generará archivos XML con las coordenadas de las células detectadas.
