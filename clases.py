@@ -1,9 +1,16 @@
+import os
 from typing import List
+
+import cv2
 import numpy as np
+from scipy import ndimage
+from skimage.feature import peak_local_max
+from skimage.segmentation import watershed
+from skimage.measure import label
+from skimage.morphology import disk
 import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
-import cv2
-import os
+
 
 class Image:
     def __init__(self, path: str, data: np.ndarray):
@@ -61,77 +68,55 @@ class ImageManager:
 
 class ImageProcessor:
 
-    def processImage(self,  imageToProcess: Image) -> List[Erythrocyte]:
-        image = imageToProcess.data
+    def processImage(self, imageToProcess: Image) -> List[Erythrocyte]:
+        img = imageToProcess.data
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
+        gray_clahe = clahe.apply(gray)
+
+        _, mask = cv2.threshold(gray_clahe, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 9))
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel)
+
+        hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+        lower_purple = np.array([110, 50, 50])
+        upper_purple = np.array([150, 255, 255])
+        purple_mask = cv2.inRange(hsv, lower_purple, upper_purple)
+        purple_mask = cv2.dilate(purple_mask, np.ones((3, 3), np.uint8), iterations=2)
+        mask[purple_mask > 0] = 0
+
+        dist = cv2.distanceTransform(mask, cv2.DIST_L2, 5)
+        dist = cv2.GaussianBlur(dist, (5, 5), 1.0)
+
+        labels_connected = label(mask).astype(np.int32)
+
+        coordinates = peak_local_max(
+            dist,
+            min_distance=10,
+            threshold_abs=3.5,
+            footprint=disk(10),
+            labels=labels_connected
+        )
+
+        markers = np.zeros_like(gray, dtype=np.int32)
+        for i, (r, c) in enumerate(coordinates, start=1):
+            markers[r, c] = i
+
+        labels_ws = watershed(-dist, markers, mask=mask.astype(bool))
+
         cellsList = []
+        for label_id in np.unique(labels_ws):
+            if label_id == 0:
+                continue
+            mask_label = (labels_ws == label_id).astype("uint8") * 255
+            if cv2.countNonZero(mask_label) < 100:
+                continue
 
-        # 1. Preprocessing
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
-        enhanced = clahe.apply(gray)
-        denoised = cv2.bilateralFilter(enhanced, d=9, sigmaColor=75, sigmaSpace=75)
-
-        # 2. Binarize
-        _, binary = cv2.threshold(denoised, 150, 255, cv2.THRESH_BINARY_INV)
-
-        # 3. Morphological operations
-        kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
-        opened = cv2.morphologyEx(binary, cv2.MORPH_OPEN, kernel, iterations=2)
-        closed = cv2.morphologyEx(opened, cv2.MORPH_CLOSE, kernel, iterations=3)
-
-        # 4. Watershed
-        dist_transform = cv2.distanceTransform(closed, cv2.DIST_L2, 5)
-        dist_8bit = cv2.normalize(dist_transform, None, 0, 255,
-                                  cv2.NORM_MINMAX).astype(np.uint8)
-
-
-        # Watershed threshold
-        _, sure_fg = cv2.threshold(dist_8bit, 0, 100,
-                                   cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-        sure_fg = np.uint8(sure_fg)
-
-        sure_bg = cv2.dilate(closed, kernel, iterations=2)
-        unknown = cv2.subtract(sure_bg, sure_fg)
-
-        # markers
-        ret, markers = cv2.connectedComponents(sure_fg)
-        markers += 1
-        markers[unknown == 255] = 0
-
-        # apply watershed
-        markers = cv2.watershed(cv2.cvtColor(denoised, cv2.COLOR_GRAY2BGR), markers)
-
-        # 5. Post-processing and bounding boxes
-        #min_area = 50
-        #max_area = 300
-        min_circularity = 0.6
-
-        for marker in np.unique(markers):
-            if marker > 1:
-                mask = np.zeros_like(markers, dtype=np.uint8)
-                mask[markers == marker] = 255
-
-                contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL,
-                                               cv2.CHAIN_APPROX_SIMPLE)
-                if contours:
-                    cnt = contours[0]
-                    area = cv2.contourArea(cnt)
-
-                    #if area < min_area or area > max_area:
-                    #    continue
-
-                    perimeter = cv2.arcLength(cnt, True)
-                    if perimeter == 0:
-                        continue
-
-                    circularity = 4 * np.pi * area / (perimeter ** 2)
-                    if circularity < min_circularity:
-                        continue
-
-                    # Calcular bounding box
-                    x, y, w, h = cv2.boundingRect(cnt)
-                    erytrocyte = Erythrocyte(x, x + w, y, y + h)
-                    cellsList.append(erytrocyte)
+            cnts, _ = cv2.findContours(mask_label, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            if cnts:
+                x, y, w, h = cv2.boundingRect(cnts[0])
+                cell = Erythrocyte(x, x + w, y, y + h)
+                cellsList.append(cell)
 
         return cellsList
 
