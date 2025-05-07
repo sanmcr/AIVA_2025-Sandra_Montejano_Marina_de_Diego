@@ -2,17 +2,24 @@ from clases import AppCore, ImageManager, ImageProcessor, ResultsProcessor, Java
 import os
 import argparse
 
+print(">>> Script iniciado correctamente")
+
 # Argumentos de línea de comandos
 parser = argparse.ArgumentParser(description="Procesamiento de imágenes para detección de eritrocitos.")
 parser.add_argument('--images_path', type=str, help='Ruta al directorio de imágenes')
 parser.add_argument('--results_path', type=str, help='Ruta al directorio de resultados')
-parser.add_argument('--save_images', type=bool, help='Guardar imágenes procesadas con las detecciones')
+parser.add_argument('--save_images', type=str, help='Guardar imágenes procesadas con las detecciones')
 args = parser.parse_args()
 
 # Rutas
 images_path = args.images_path
 results_path = args.results_path
 save_images = args.save_images
+
+if save_images == 'true' or save_images == 'True':
+    save_images = True
+else:
+    save_images = False
 
 if not os.path.exists(results_path):
     os.makedirs(results_path)
@@ -39,7 +46,6 @@ for image_path in images_list:
     if valid:
         image_cells_list = image_processor.processImage(this_image)
         num_cells = image_processor.countCells(image_cells_list)
-        print(f'El número de eritrocitos encontrados es: {num_cells} eritrocitos')
 
         xml_result = results_processor.generateXML(this_image, image_cells_list)
         app_core.saveResults(results_path, xml_result, this_image)
